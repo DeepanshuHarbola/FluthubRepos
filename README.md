@@ -1,6 +1,6 @@
-# fluthubrepos
+# FluthubRepos
 
-A new Flutter application.
+A new Flutter + MVP application.
 
 ## Getting Started
 
