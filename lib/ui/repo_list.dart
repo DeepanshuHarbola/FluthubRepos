@@ -88,6 +88,7 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
               child: new IconButton(
                   icon: new Icon(Icons.send),
                   onPressed: (){
+                    FocusScope.of(_scaffoldContext).requestFocus(new FocusNode());
                     if(_textController.text != ""){
                       _handleSubmitted(_textController.text);
                     }
