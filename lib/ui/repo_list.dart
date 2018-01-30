@@ -19,8 +19,9 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
 
   final TextEditingController _textController = new TextEditingController();
   RepoScreenPresenter _presenter;
-  List<GithubRepo> repos;
+  List<GithubRepo> _repos;
   bool _isLoading;
+  BuildContext _scaffoldContext;
 
 
   @override
@@ -33,27 +34,33 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
 
   @override
   Widget build(BuildContext context) {
+    Widget mainBody = new Column(
+      children: <Widget>[
+        new Flexible(
+          child: _buildListComposer(),
+        ),
+        new Divider(height: 1.0),
+        new Container(
+          decoration: new BoxDecoration(
+              color: Theme.of(context).cardColor),
+          child: _buildTextComposer(),
+        ),
+      ],
+    );
     return new Scaffold(
       appBar: new AppBar(title: new Text("Fluthub Repos")),
-      body: new Column(                                        //modified
-        children: <Widget>[                                         //new
-          new Flexible(                                             //new
-            child: _buildListComposer(),                               //new
-          ),                                                        //new
-          new Divider(height: 1.0),                                 //new
-          new Container(                                            //new
-            decoration: new BoxDecoration(
-                color: Theme.of(context).cardColor),                  //new
-            child: _buildTextComposer(),                       //modified
-          ),                                                        //new
-        ],                                                          //new
-      ),                                                            //new
+      body: new Builder(
+          builder: (BuildContext context) {
+            _scaffoldContext = context;
+            return mainBody;
+          }
+      ),
     );
   }
 
   void _handleSubmitted(String text) {
     _textController.clear();
-    repos.clear();
+    _repos.clear();
     setState(() {
       _isLoading = true;
       _presenter.githubUser(text);
@@ -85,12 +92,11 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
                       _handleSubmitted(_textController.text);
                     }
                     else{
-                      /*Scaffold.of(context).showSnackBar(new SnackBar(
+                      Scaffold.of(_scaffoldContext).showSnackBar(new SnackBar(
                         content: new Text("No user to find"),
-                      ));*/
+                      ));
                     }
                   },
-                  //onPressed: () => _handleSubmitted(_textController.text)
               ),
             ),
           ],
@@ -111,7 +117,7 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
       );
     } else {
 
-      if(repos == null || repos.isEmpty ) {
+      if(_repos == null || _repos.isEmpty ) {
         widget = new Center(
             child: new Text("Error fetching data")
         );
@@ -129,7 +135,7 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
   List<Widget> _buildReposWidgetList() {
     List<Widget> list = new List<Widget>();
 
-    repos.forEach((repo) => list.add(new ListItem(repo)));
+    _repos.forEach((repo) => list.add(new ListItem(repo)));
     return list;
   }
 
@@ -141,16 +147,16 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
   @override
   void updateData(List<GithubRepo> repo) {
     setState(() {
-      this.repos = repo;
+      this._repos = repo;
       _isLoading = false;
     });
   }
 
   @override
   void showMessage(String msg) {
-    /*Scaffold.of(context).showSnackBar(new SnackBar(
+    Scaffold.of(_scaffoldContext).showSnackBar(new SnackBar(
       content: new Text(msg),
-    ));*/
+    ));
     setState(() {
       _isLoading = false;
     });
