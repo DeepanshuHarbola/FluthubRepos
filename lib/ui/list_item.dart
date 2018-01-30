@@ -39,13 +39,13 @@ class ListItem extends StatelessWidget {
           ),
 
           new Padding(
-              padding: new EdgeInsets.only(left: 10.0, bottom: 5.0),
+              padding: new EdgeInsets.only(left: 20.0, bottom: 5.0),
               child: new Icon(
                 Icons.star, color: Colors.amber,
               ),
           ),
           new Padding(
-                padding: new EdgeInsets.only(left: 5.0 ,bottom: 5.0, right: 5.0),
+                padding: new EdgeInsets.only(left: 2.0 ,bottom: 5.0, right: 5.0),
                 child: new Text(_repo.stargazersCount.toString(),
                   style: new TextStyle(
                       fontSize: 14.0,
