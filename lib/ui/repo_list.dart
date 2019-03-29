@@ -19,7 +19,7 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
 
   final TextEditingController _textController = new TextEditingController();
   RepoScreenPresenter _presenter;
-  List<GithubRepo> _repos;
+  List<dynamic> _repos;
   bool _isLoading;
   BuildContext _scaffoldContext;
 
@@ -60,7 +60,9 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
 
   void _handleSubmitted(String text) {
     _textController.clear();
-    _repos.clear();
+    if (_repos != null) {
+      _repos.clear();
+    }
     setState(() {
       _isLoading = true;
       _presenter.githubUser(text);
@@ -146,7 +148,7 @@ class RepoScreenState extends State<RepoScreen> implements RepoScreenContractVie
   }
 
   @override
-  void updateData(List<GithubRepo> repo) {
+  void updateData(List<dynamic> repo) {
     setState(() {
       this._repos = repo;
       _isLoading = false;

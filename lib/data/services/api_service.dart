@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   final JsonDecoder _decoder = new JsonDecoder();
 
-  Future<dynamic> request(String url) {
+  Future<List<dynamic>> request(String url) {
     return http.get(url)
         .then((http.Response response) {
       final String res = response.body;

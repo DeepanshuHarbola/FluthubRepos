@@ -5,7 +5,7 @@ abstract class RepoScreenContractView {
 
   void setPresenter(RepoScreenPresenter presenter);
 
-  void updateData(List<GithubRepo> repo);
+  void updateData(List<dynamic> repo);
 
   void showMessage(String msg);
 
