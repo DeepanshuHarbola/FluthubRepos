@@ -1,6 +1,6 @@
 # FluthubRepos
 
-An example app with Flutter + MVP architecture to get the GitHub repos of a user. Now only for android.
+An example app with Flutter + MVP architecture to get the GitHub repos of a user.(only for android.)
 
 ## Getting Started
 
